@@ -9,7 +9,6 @@ public class Main {
 
     public static void main(String[] args) {
         //TODO zou leuker zijn als dit voor alle board sizes werkte
-        //TODO speler objecten zoveel mogelijk gebruiken in tic tac toe, ik gebruik nu nog player1name en player2name
         //TODO welke andere classes kan ik aan tic tac toe toevoegen
         //TODO playerid ipv playertoken gebruiken
 
@@ -70,9 +69,8 @@ public class Main {
                     //}
 
                     if (did_someone_win == 1) { //ik zou ook een while loop kunnen maken van turn en dan telkens turn++
-                        System.out.println("ds");
                         printBoard(board);
-                        System.out.println("sd");
+
                         if (activePlayerId == 1) {
                             player1.addScore();
                         } else {
@@ -98,10 +96,13 @@ public class Main {
                     }
 
                 }
+                System.out.println();
                 System.out.println("Aantal keer gelijkspel is: " + drawCount );
                 System.out.println("player 1 score: " + player1.getScore());
                 System.out.println("player 2 score: " + player2.getScore());
                 System.out.println("hier mogelijkheid bieden andere spelers te nemen");
+                System.out.println();
+                System.out.println();
             }
 
         }
