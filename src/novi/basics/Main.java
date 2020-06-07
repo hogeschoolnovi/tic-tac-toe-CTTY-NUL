@@ -7,6 +7,8 @@ public class Main {
     //declare stuff here so it can be used in different methods
     public static char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
     public static String activePlayerName = "";
+    //public static char player1token = 'X'; //mogelijk maken om andere tokens te kiezen!
+    //public static char player2token = 'O';
 
     public static void main(String[] args) {
         //TODO make it work for all board dimensions?
@@ -51,7 +53,9 @@ public class Main {
 
                 char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
+                //TODO hier while loop van maken: zolang spel niet gewonnen is en we nog niet op beurt 10 zitten
                 for (int turn = 1; turn < 10; turn++) { // the game has a max 9 turns, but the 9th turn is kinda pointless cause there is only 1 option left!
+
                     System.out.println("Turn number: " + turn);
 
                     printBoard(board);
@@ -90,23 +94,18 @@ public class Main {
                 }
                 System.out.println();
                 System.out.println("Amount of draws: " + drawCount);
-                System.out.println("Player 1 score: " + player1.getScore());
-                System.out.println("Player 2 score: " + player2.getScore());
+                //System.out.println("Player 1 score: " + player1.getScore());
+                //System.out.println("Player 2 score: " + player2.getScore());
+                player1.show_score();
+                player2.show_score();
                 System.out.println();
                 System.out.println();
-
-                Scanner are_you_done_scanner = new Scanner(System.in);
-                System.out.println("Press 1 to continue playing");
-                System.out.println("Press 2 to switch players");
-                System.out.println("Press 3 to exit");
-
-                int are_you_done = are_you_done_scanner.nextInt();
-                //TODO this should detect incorrect input, maybe turn this into a method?
-                if (are_you_done == 3) {
-                    System.exit(0);
-                    //user_wants_to_exit = 1;
-                } else if (are_you_done == 2) {
+                int answer_continue_switchplayers_exit;
+                answer_continue_switchplayers_exit = ask_continue_switchplayers_exit();
+                if (answer_continue_switchplayers_exit == 2) {
                     switch_players = 1;
+                } else if(answer_continue_switchplayers_exit == 3) {
+                    System.exit(0);
                 }
 
             }
@@ -137,22 +136,22 @@ public class Main {
         for (int i = 1; i < 4; i++) {
             //horizontal check
             if (board[i * 3 - 3] == board[i * 3 - 2] && board[i * 3 - 2] == board[i * 3 - 1]) {
-                System.out.println("-----------------horizontal win");
+                //System.out.println("-----------------horizontal win");
                 return 1;
             }
             //vertical check
             if (board[i - 1] == board[i + 2] && board[i + 2] == board[i + 5]) {
-                System.out.println("-----------------vertical win");
+                //System.out.println("-----------------vertical win");
                 return 1;
             }
         }
         //TODO find more elegant way to check diagonals
         if (board[0] == board[4] && board[4] == board[8]) { // 1 5 9 & 7 5 3 (-1 due to zero based array)
-            System.out.println("-----------------diagonal win");
+            //System.out.println("-----------------diagonal win");
             return 1;
         }
         if (board[6] == board[4] && board[4] == board[2]) {
-            System.out.println("-----------------diagonal win");
+            //System.out.println("-----------------diagonal win");
             return 1;
         }
         return 0;
@@ -166,7 +165,7 @@ public class Main {
         int inputInt = 0;
         do {
 
-            System.out.println(activePlayerName + " please enter a whole number (1-9): ");
+            System.out.println(activePlayerName + ", please enter a whole number (1-9): ");
             if (scan.hasNextInt()) { // I tried getting rid of this If statement but no bueno
                 inputInt = scan.nextInt();
 
@@ -185,6 +184,35 @@ public class Main {
             }
         }
         while (validInput == false); //a while loop has a weird syntax!
+
+        return inputInt;
+    }
+
+    public static int ask_continue_switchplayers_exit() {
+        int inputInt = 0;
+        boolean validInput = false;
+
+        Scanner scanner_continue_switchplayers_exit = new Scanner(System.in);
+
+        do {
+            System.out.println("Press 1 to continue playing");
+            System.out.println("Press 2 to switch players");
+            System.out.println("Press 3 to exit");
+
+            if (scanner_continue_switchplayers_exit.hasNextInt()) {
+                inputInt = scanner_continue_switchplayers_exit.nextInt();
+                if (inputInt > 0 && inputInt < 4) {
+                    validInput = true;
+                } else {
+                    System.out.println("Incorrect number");
+                }
+            } else {
+                System.out.println("Not a number");
+                scanner_continue_switchplayers_exit.next(); //discard scanner input, if not then it keeps looping
+            }
+
+        }
+        while (validInput == false);
 
         return inputInt;
     }

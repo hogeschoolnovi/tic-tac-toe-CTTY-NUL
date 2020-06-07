@@ -31,8 +31,14 @@ public class Player {
         return token;
     }
 
-    public int getScore() {
-        return score;
+    //public int getScore() {
+    //    return score;
+   // }
+
+
+    public void show_score(){
+        System.out.println("Player " + this.getName() + " scored " + this.score + " points"); //this.getScore()
+
     }
 
     //public int getWins() {
