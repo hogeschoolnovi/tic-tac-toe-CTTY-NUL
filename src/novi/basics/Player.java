@@ -1,6 +1,15 @@
 package novi.basics;
 
-public class Player {
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Player implements Serializable {
+
+    //TODO toString() leren https://www.javatpoint.com/understanding-toString()-method
+    //TODO heb nu deze gedaan, maar moet ook lezen https://attacomsian.com/blog/java-write-object-to-file#
+
     //attributen: informatie verzamelen
     private int playerid;
     private String name;
@@ -55,4 +64,38 @@ public class Player {
     //public void addWin() {
         //parameter voor welke speler gewonnen heeft???
     //}
+
+
+
+
+    public static int write_to_file() {
+
+        try {
+            FileOutputStream fos = new FileOutputStream("object.dat");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            // create a new user object
+
+            Player playertmp = new Player(1,"onzinnaam",'X');
+//            User user = new User("John Doe", "john.doe@example.com",
+//                    new String[]{"Member", "Admin"}, true);
+
+            // write object to file
+            oos.writeObject(playertmp);
+
+            // close writer
+            oos.close();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        int i = 0;
+        return i;
+    }
+
+
+
+
+
+
 }
