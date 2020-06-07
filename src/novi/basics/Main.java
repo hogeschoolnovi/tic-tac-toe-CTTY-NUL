@@ -25,7 +25,7 @@ public class Main {
 
         //final char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
         // speelbord tonen
-        printBoard(board);
+        //printBoard(board);
 
 
         int user_wants_to_exit = 0;
@@ -53,26 +53,38 @@ public class Main {
             int activePlayerId = 1;
 
             while (switch_players == 0) {
-                System.out.println("9 beurten beginenn");
+                //System.out.println("9 beurten beginenn");
+                //bord opnieuw opzetten
+                char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
                 for (int turn = 1; turn < 10; turn++) {
                     System.out.println("Het is beurt nummer " + turn);
 
-
+                    printBoard(board);
                     keuze = ask_player_for_move(activePlayerId); // hier speler 1 of 2
 
                     board[keuze - 1] = activePlayerToken;
-                    printBoard(board);
+                    //printBoard(board);
                     //if (turn > 2) { //met minder dan 3 beuren heeft t weinig zin dit te checken
                     did_someone_win = check_if_someone_won(board);
                     //}
 
                     if (did_someone_win == 1) { //ik zou ook een while loop kunnen maken van turn en dan telkens turn++
+                        System.out.println("ds");
+                        printBoard(board);
+                        System.out.println("sd");
+                        if (activePlayerId == 1) {
+                            player1.addScore();
+                        } else {
+                            player2.addScore();
+                        }
 
                         turn = 9;
                     } else if (did_someone_win == 0 && turn == 9) {
                         //het is gelijkspel
                         drawCount++;
                         System.out.println("het is gelijkspel maar eigenlijk zijn jullie beiden verliezers!");
+
                     }
 
 
@@ -86,6 +98,9 @@ public class Main {
                     }
 
                 }
+                System.out.println("Aantal keer gelijkspel is: " + drawCount );
+                System.out.println("player 1 score: " + player1.getScore());
+                System.out.println("player 2 score: " + player2.getScore());
                 System.out.println("hier mogelijkheid bieden andere spelers te nemen");
             }
 
@@ -94,14 +109,18 @@ public class Main {
 
 
     public static void printBoard(char[] board) {
-        //TODO vervangen door mijn elegantere versie
+        //TODO vervangen door mijn elegantere versie?
         for (int fieldIndex = 0; fieldIndex < board.length; fieldIndex++) {
             System.out.print(board[fieldIndex] + " ");
             // als we het tweede veld geprint hebben of het vijfde veld geprint hebben
             // dan gaan we naar de volgende regel
-            if (fieldIndex == 2 || fieldIndex == 5) {
+//            if (fieldIndex == 2 || fieldIndex == 5) {
+//                System.out.println();
+//            }
+            if ((fieldIndex - 2) % 3 == 0) { // if divisible by 3 -- waarom makkelijk doen als het ook moeilijk kan
                 System.out.println();
             }
+
         }
         System.out.println();
     }
@@ -110,19 +129,26 @@ public class Main {
     public static int check_if_someone_won(char[] board) {
 
         for (int i = 1; i < 4; i++) {
-            //horizontaal checken
+            //horizontal check
             if (board[i * 3 - 3] == board[i * 3 - 2] && board[i * 3 - 2] == board[i * 3 - 1]) {
-                System.out.println("WHOOHOOOOOOO er heeft iemand horizontaal gewoonnen!!!");
+                System.out.println("-----------------horizontal win");
                 return 1;
             }
-            //verticaal checken
+            //vertical check
             if (board[i - 1] == board[i + 2] && board[i + 2] == board[i + 5]) {
-                System.out.println("fuck yeah verticale win");
+                System.out.println("-----------------vertical win");
                 return 1;
             }
         }
-        //TODO diagonalen checken, zowel linksonder naar rechtsboven als linksboven naar rechtsonder
-
+        //er is vast een mooiere manier om de diagonalen te checken!
+        if (board[0] == board[4] && board[4] == board[8]) { // 1 5 9 & 7 5 3 (maar allemaal -1)
+            System.out.println("-----------------diagonal win");
+            return 1;
+        }
+        if (board[6] == board[4] && board[4] == board[2]) {
+            System.out.println("-----------------diagonal win");
+            return 1;
+        }
         return 0;
     }
 
@@ -136,7 +162,7 @@ public class Main {
         do {
 
             System.out.print("Speler " + speler + " please enter a whole number: ");
-            if (scan.hasNextInt()) {
+            if (scan.hasNextInt()) { // heb het zonder dit If statement geprobeerd maar dat was geen succes!
                 inputInt = scan.nextInt();
 
                 try {
@@ -155,10 +181,9 @@ public class Main {
                 System.out.println("You have entered incorrect input! Please enter a whole number 1-9");
                 scan.nextLine();
             }
-        while (validInput == false);
+        while (validInput == false); //rare syntax voor de while!
 
         return inputInt;
     }
-
 
 }
