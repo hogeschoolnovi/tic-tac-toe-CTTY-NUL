@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-        //speler objecten zoveel mogelijk gebruiken in tic tac toe
+        //zou leuker zijn als dit voor alle board sizes werkte
+        //speler objecten zoveel mogelijk gebruiken in tic tac toe, ik gebruik nu nog player1name en player2name
         //welke andere classes kan ik aan tic tac toe toevoegen
 
         Scanner playerInput = new Scanner(System.in);
@@ -151,6 +151,7 @@ public class Main {
 
 
     public static int check_if_someone_won(char[] board) {
+
         for (int i = 1; i < 4; i++) {
             //horizontaal checken
             if(board[i * 3 - 3] == board[i * 3 - 2] && board[i * 3 - 2] == board[i * 3 - 1]){
