@@ -4,21 +4,24 @@ import java.util.Scanner;
 
 public class Main {
 
-    //declare board here so it can be used in different methods
+    //declare stuff here so it can be used in different methods
     public static char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    public static String activePlayerName = "";
 
     public static void main(String[] args) {
         //TODO make it work for all board dimensions?
         //TODO add ability to cheat; chosing field 13 automagically wins the game
         //TODO make board a multidimensional array
+        //TODO support non-standard tokens
 
         int user_wants_to_exit = 0; //TODO should be a boolean
         int switch_players = 0; //TODO should be a boolean
         int drawCount = 0;
-        String activePlayerName;
         int chosenField;
         int did_someone_win; //TODO should be a boolean
         int ask_for_player_names = 0; //TODO should be a boolean
+        char activePlayerToken;
+        int activePlayerId = 1;
 
         while (user_wants_to_exit == 0) {
 
@@ -37,12 +40,12 @@ public class Main {
             }
             Player player1 = new Player(1, player1Name, 'X');
             Player player2 = new Player(2, player2Name, 'O');
-
+            activePlayerName = player1Name;
+            //activePlayerId = player1
+            activePlayerToken = player1.getToken();
 
             switch_players = 0; //we just did
 
-            char activePlayerToken = 'X'; //TODO move to the rest of the declarations
-            int activePlayerId = 1; //TODO move to the rest of the declarations
 
             while (switch_players == 0) {
 
@@ -75,16 +78,18 @@ public class Main {
                     }
 
                     if (activePlayerId == 1) {
-                        activePlayerId = 2;
-                        activePlayerToken = 'O';
+                        activePlayerId = player2.getId();
+                        activePlayerToken = player2.getToken();
+                        activePlayerName = player2.getName();
                     } else {
-                        activePlayerId = 1;
-                        activePlayerToken = 'X';
+                        activePlayerId = player1.getId();
+                        activePlayerToken = player1.getToken();
+                        activePlayerName = player1.getName();
                     }
 
                 }
                 System.out.println();
-                System.out.println("Amount of draws: " + drawCount );
+                System.out.println("Amount of draws: " + drawCount);
                 System.out.println("Player 1 score: " + player1.getScore());
                 System.out.println("Player 2 score: " + player2.getScore());
                 System.out.println();
@@ -153,7 +158,6 @@ public class Main {
         return 0;
     }
 
-
     public static int ask_player_for_move(int player_number) {  //Player 1 or player 2
 
         Scanner scan = new Scanner(System.in);  // Create a Scanner object
@@ -162,26 +166,24 @@ public class Main {
         int inputInt = 0;
         do {
 
-            System.out.print("Player " + player_number + " please enter a whole number (1-9): ");
+            System.out.println(activePlayerName + " please enter a whole number (1-9): ");
             if (scan.hasNextInt()) { // I tried getting rid of this If statement but no bueno
                 inputInt = scan.nextInt();
 
                 try {
-                    if (board[inputInt - 1] != 'O' && board[inputInt - 1] != 'X') {
+                    if (board[inputInt - 1] != 'O' && board[inputInt - 1] != 'X') { //TODO this should use player.gettoken in order to support non-standard tokens
                         validInput = true;
                     } else {
                         System.out.println("This space is already occupied.");
-                        validInput = false;
                     }
                 } catch (Exception e) {
-                    System.out.println("Player " + player_number + " please enter a whole number (1-9): ");
-                    validInput = false;
+                    //do nothing
                 }
 
-            } else
-                System.out.println("Player " + player_number + " please enter a whole number (1-9): ");
-                scan.nextLine();
+            } else {
+                scan.next(); //discard scanner input
             }
+        }
         while (validInput == false); //a while loop has a weird syntax!
 
         return inputInt;
