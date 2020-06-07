@@ -13,16 +13,18 @@ public class Main {
     public static void main(String[] args) {
         //TODO make it work for all board dimensions?
         //TODO add ability to cheat; chosing field 13 automagically wins the game
-        //TODO make board a multidimensional array
         //TODO support non-standard tokens
+        //TODO make alternative version wherein board is a multidimensional array
 
         boolean does_user_want_to_quit = false; //a bit presumptuous
         boolean should_we_switch_players = false;
+        boolean did_someone_win = false;
+        boolean should_we_ask_player_names = true;
+
 
         int drawCount = 0;
         int chosenField;
-        int did_someone_win; //TODO should be a boolean
-        int ask_for_player_names = 1; //TODO should be a boolean
+
         char activePlayerToken;
         int activePlayerId = 1;
 
@@ -33,7 +35,7 @@ public class Main {
             String player1Name = "Alice";
             String player2Name = "Bob";
 
-            if (ask_for_player_names != 0) {
+            if (should_we_ask_player_names) {
                 System.out.println("Player 1, what is your name?");
                 player1Name = playerInput.next();
 
@@ -62,11 +64,11 @@ public class Main {
                     chosenField = ask_player_for_move(activePlayerId); //TODO chosenfield is ambigous
 
                     board[chosenField - 1] = activePlayerToken;
-                    //if (turn > 2) { //TODO checking if someone won after only 2 turns is pointless
-                    did_someone_win = check_if_someone_won(board);
-                    //}
+                    if (turn > 2) {
+                        did_someone_win = check_if_someone_won(board);
+                    }
 
-                    if (did_someone_win == 1) {
+                    if (did_someone_win) {
                         printBoard(board);
 
                         if (activePlayerId == 1) {
@@ -76,7 +78,7 @@ public class Main {
                         }
 
                         turn = 9; //TODO I could change the for loop to a while loop and use turn++; the game may take less than 9 turns
-                    } else if (did_someone_win == 0 && turn == 9) {
+                    } else if (!did_someone_win && turn == 9) {
                         drawCount++;
                         System.out.println("Its a draw... so technically you both lost!");
                     }
@@ -104,7 +106,7 @@ public class Main {
                 answer_continue_switchplayers_exit = ask_continue_switchplayers_exit();
                 if (answer_continue_switchplayers_exit == 2) {
                     System.out.println("Switching players...");
-                    ask_for_player_names = 1;
+                    should_we_ask_player_names = true;
                     should_we_switch_players = true;
                 } else if(answer_continue_switchplayers_exit == 3) {
                     System.out.println("Quitting...");
@@ -134,30 +136,30 @@ public class Main {
     }
 
 
-    public static int check_if_someone_won(char[] board) { //TODO this should return a boolean
+    public static boolean check_if_someone_won(char[] board) {
 
         for (int i = 1; i < 4; i++) {
             //horizontal check
             if (board[i * 3 - 3] == board[i * 3 - 2] && board[i * 3 - 2] == board[i * 3 - 1]) {
                 //System.out.println("-----------------horizontal win");
-                return 1;
+                return true;
             }
             //vertical check
             if (board[i - 1] == board[i + 2] && board[i + 2] == board[i + 5]) {
                 //System.out.println("-----------------vertical win");
-                return 1;
+                return true;
             }
         }
         //TODO find more elegant way to check diagonals
         if (board[0] == board[4] && board[4] == board[8]) { // 1 5 9 & 7 5 3 (-1 due to zero based array)
             //System.out.println("-----------------diagonal win");
-            return 1;
+            return true;
         }
         if (board[6] == board[4] && board[4] == board[2]) {
             //System.out.println("-----------------diagonal win");
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 
     public static int ask_player_for_move(int player_number) {  //Player 1 or player 2
