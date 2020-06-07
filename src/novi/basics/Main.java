@@ -11,6 +11,8 @@ public class Main {
         //TODO zou leuker zijn als dit voor alle board sizes werkte
         //TODO welke andere classes kan ik aan tic tac toe toevoegen
         //TODO playerid ipv playertoken gebruiken
+        //TODO Engels en Nederlands door elkaar
+
 
 
         // -- vanaf hier gaan we het spel opnieuw spelen met andere spelers (nadat op het eind keuze 2 gekozen is)
@@ -39,14 +41,15 @@ public class Main {
 
             Scanner playerInput = new Scanner(System.in);
             //voor testen makkelijker als ze defaultnamen hebben
-            String player1Name = "Alice";
-            String player2Name = "Bob";
-//          System.out.println("Player 1, what is your name?");
-//          String player1Name = playerInput.next();
+//          String player1Name = "Alice";
+//          String player2Name = "Bob";
+            System.out.println("Player 1, what is your name?");
+            String player1Name = playerInput.next();
             Player player1 = new Player(1, player1Name, 'X');
-//          System.out.println("Player 2, what is your name?");
-//          String player2Name = playerInput.next();
+            System.out.println("Player 2, what is your name?");
+            String player2Name = playerInput.next();
             Player player2 = new Player(2, player2Name, 'O');
+            switch_players = 0;
 
             char activePlayerToken = 'X'; // token van de actieve speler opslaan
             int activePlayerId = 1;
@@ -100,9 +103,26 @@ public class Main {
                 System.out.println("Aantal keer gelijkspel is: " + drawCount );
                 System.out.println("player 1 score: " + player1.getScore());
                 System.out.println("player 2 score: " + player2.getScore());
-                System.out.println("hier mogelijkheid bieden andere spelers te nemen");
+                //System.out.println("hier mogelijkheid bieden andere spelers te nemen");
                 System.out.println();
                 System.out.println();
+
+                Scanner are_you_done_scanner = new Scanner(System.in);
+                System.out.println("Press 1 to continue playing");
+                System.out.println("Press 2 to switch players");
+                System.out.println("Press 3 to exit");
+                //String are_you_done = playerInput.next();
+                int are_you_done = are_you_done_scanner.nextInt();
+                //hier moet ook nog detectie foute input op, weer een method van maken?
+                if (are_you_done == 3) {
+                    System.exit(0);
+                    //user_wants_to_exit = 1;
+                } else if (are_you_done == 2) {
+                    switch_players = 1;
+                }
+
+
+
             }
 
         }
@@ -110,7 +130,7 @@ public class Main {
 
 
     public static void printBoard(char[] board) {
-        //TODO vervangen door mijn elegantere versie?
+        //TODO vervangen door elegantere versie?
         for (int fieldIndex = 0; fieldIndex < board.length; fieldIndex++) {
             System.out.print(board[fieldIndex] + " ");
             // als we het tweede veld geprint hebben of het vijfde veld geprint hebben
@@ -127,7 +147,7 @@ public class Main {
     }
 
 
-    public static int check_if_someone_won(char[] board) {
+    public static int check_if_someone_won(char[] board) { // zou een boolean moeten returnen
 
         for (int i = 1; i < 4; i++) {
             //horizontal check
