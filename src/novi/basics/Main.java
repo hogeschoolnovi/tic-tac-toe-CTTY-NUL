@@ -1,5 +1,7 @@
 package novi.basics;
+
 import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -7,17 +9,20 @@ public class Main {
         //welke andere classes kan ik aan tic tac toe toevoegen
 
         Scanner playerInput = new Scanner(System.in);
-        // -- vanaf hier gaan we het spel opnieuw spelen met andere spelers (nadat op het eind  keuze 2 gekozen is)
+
+
+
+        // -- vanaf hier gaan we het spel opnieuw spelen met andere spelers (nadat op het eind keuze 2 gekozen is)
         // de 1e speler om zijn naam vragen
         System.out.println("Player 1, what is your name?");
         // de naam van de 1e speler opslaan
         String player1Name = playerInput.next();
-        Player player1 = new Player(player1Name,'X');
+        Player player1 = new Player(player1Name, 'X');
         // de 2e speler om zijn naam vragen
         System.out.println("Player 2, what is your name?");
         // de naam van de 2e speler opslaan
         String player2Name = playerInput.next();
-        Player player2 = new Player(player2Name,'O');
+        Player player2 = new Player(player2Name, 'O');
 
         // opslaan hoeveel keer er gelijk spel is geweest
         int drawCount = 0;
@@ -33,25 +38,30 @@ public class Main {
         printBoard(board);
         // token van de actieve speler opslaan
         char activePlayerToken = 'X';
+
+
+
         // starten met de beurt (maximaal 9 beurten)
         for (int round = 0; round < maxRounds; round++) {
             // naam van de actieve speler opslaan
             String activePlayerName;
 
-            if(activePlayerToken == player1Token) {
+            if (activePlayerToken == player1.getToken()) {
                 activePlayerName = player1Name;
             } else {
                 activePlayerName = player2Name;
             }
+
+
             // actieve speler vragen om een veld te kiezen (1 - 9)
             System.out.println(activePlayerName + ", please choose a field");
             // gekozen veld van de actieve speler opslaan
             int chosenField = playerInput.nextInt();
             int chosenIndex = chosenField - 1;
             // als het veld bestaat
-            if(chosenIndex < 9 && chosenIndex >= 0) {
+            if (chosenIndex < 9 && chosenIndex >= 0) {
                 //als het veld leeg is, wanneer er geen token staat
-                if(board[chosenIndex] != player1Token && board[chosenIndex] != player2Token) {
+                if (board[chosenIndex] != player1.getToken() && board[chosenIndex] != player2.getToken()) {
                     // wanneer de speler een token op het bord kan plaatsen
                     // de token van de actieve speler op het gekozen veld plaatsen
                     board[chosenIndex] = activePlayerToken;
@@ -67,14 +77,14 @@ public class Main {
                     // aantal keer gelijk spel tonen
                     // de beurt doorgeven aan de volgende speler (van speler wisselen)
                     // als de actieve speler, speler 1 is:
-                    if(activePlayerToken == player1Token) {
+                    if (activePlayerToken == player1.getToken()) {
                         // maak de actieve speler, speler 2
-                        activePlayerToken = player2Token;
+                        activePlayerToken = player2.getToken();
                     }
                     // anders
                     else {
                         // maak de actieve speler weer speler 1
-                        activePlayerToken = player1Token;
+                        activePlayerToken = player1.getToken();
                     }
                 } //of al bezet is
                 else {
@@ -105,15 +115,18 @@ public class Main {
         // bij keuze 2: terug naar de start van de applicatie en het vragen van spelernamen
         // bij keuze 3: het spel en de applicatie helemaal afsluiten
     }
+
+
+
     public static void printBoard(char[] board) {
-        for (int fieldIndex = 0; fieldIndex < board.length; fieldIndex++) {
-            System.out.print(board[fieldIndex] + " ");
-            // als we het tweede veld geprint hebben of het vijfde veld geprint hebben
-            // dan gaan we naar de volgende regel
-            if(fieldIndex == 2 || fieldIndex == 5) {
+        for (int fieldIndex=1; fieldIndex<board.length; fieldIndex++) {
+            board[fieldIndex] = (char) (fieldIndex + '0'); //dus eigenlijk plus 48, de ascii waarde van 0
+            System.out.print(board[fieldIndex]);
+            if (fieldIndex % 3 == 0) { // if divisible by 3
                 System.out.println();
             }
         }
-        System.out.println();
+
     }
+
 }
