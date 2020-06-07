@@ -14,64 +14,59 @@ public class Main {
         //TODO Engels en Nederlands door elkaar
 
 
-
-        // -- vanaf hier gaan we het spel opnieuw spelen met andere spelers (nadat op het eind keuze 2 gekozen is)
-        // de 1e speler om zijn naam vragen
-
-
-        // -- vanaf hier gaan we het spel opnieuw spelen met dezelfde spelers (nadat op het eind keuze 1 gekozen is)
-        // speelbord opslaan (1 - 9)
-        // uitleg: omdat we altijd met een bord starten met 9 getallen, kunnen we het Tic Tac Toe bord ook direct een waarde geven
-        // zie demo project code voor de andere manier met de for loop
-
-        //final char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-        // speelbord tonen
-        //printBoard(board);
-
-
         int user_wants_to_exit = 0;
-        //int user_input_is_valid = 0;
         int switch_players = 0;
         int drawCount = 0; // opslaan hoeveel keer er gelijk spel is geweest
         String activePlayerName;
         int keuze;
         int did_someone_win;
 
+        int ask_for_player_names = 0; //TODO should be a boolean
+
         while (user_wants_to_exit == 0) {
 
             Scanner playerInput = new Scanner(System.in);
-            //voor testen makkelijker als ze defaultnamen hebben
-//          String player1Name = "Alice";
-//          String player2Name = "Bob";
-            System.out.println("Player 1, what is your name?");
-            String player1Name = playerInput.next();
+
+            String player1Name;
+            String player2Name;
+
+            if (ask_for_player_names == 0) {
+              //give players default names to speed up testing
+              player1Name = "Alice";
+              player2Name = "Bob";
+            } else {
+                System.out.println("Player 1, what is your name?");
+                player1Name = playerInput.next();
+
+                System.out.println("Player 2, what is your name?");
+                player2Name = playerInput.next();
+            }
             Player player1 = new Player(1, player1Name, 'X');
-            System.out.println("Player 2, what is your name?");
-            String player2Name = playerInput.next();
             Player player2 = new Player(2, player2Name, 'O');
+
+
             switch_players = 0;
 
-            char activePlayerToken = 'X'; // token van de actieve speler opslaan
+            char activePlayerToken = 'X';
             int activePlayerId = 1;
 
             while (switch_players == 0) {
-                //System.out.println("9 beurten beginenn");
-                //bord opnieuw opzetten
+
                 char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-                for (int turn = 1; turn < 10; turn++) {
-                    System.out.println("Het is beurt nummer " + turn);
+                for (int turn = 1; turn < 10; turn++) { // the game has a max 9 turns, but the 9th turn is kinda pointless cause there is only 1 option left!
+                    System.out.println("Turn number: " + turn);
 
                     printBoard(board);
-                    keuze = ask_player_for_move(activePlayerId); // hier speler 1 of 2
+                    keuze = ask_player_for_move(activePlayerId);
 
                     board[keuze - 1] = activePlayerToken;
                     //printBoard(board);
-                    //if (turn > 2) { //met minder dan 3 beuren heeft t weinig zin dit te checken
+                    //if (turn > 2) { //TODO checking if someone won after only 2 turns is pointless
                     did_someone_win = check_if_someone_won(board);
                     //}
 
-                    if (did_someone_win == 1) { //ik zou ook een while loop kunnen maken van turn en dan telkens turn++
+                    if (did_someone_win == 1) { //TODO I could change the for loop to a while loop and use turn++; the game may take less than 9 turns
                         printBoard(board);
 
                         if (activePlayerId == 1) {
@@ -82,14 +77,11 @@ public class Main {
 
                         turn = 9;
                     } else if (did_someone_win == 0 && turn == 9) {
-                        //het is gelijkspel
                         drawCount++;
-                        System.out.println("het is gelijkspel maar eigenlijk zijn jullie beiden verliezers!");
-
+                        System.out.println("Its a draw... so you both lost!");
                     }
 
 
-                    //van activeplayertoken wisselen
                     if (activePlayerId == 1) {
                         activePlayerId = 2;
                         activePlayerToken = 'O';
@@ -100,10 +92,9 @@ public class Main {
 
                 }
                 System.out.println();
-                System.out.println("Aantal keer gelijkspel is: " + drawCount );
-                System.out.println("player 1 score: " + player1.getScore());
-                System.out.println("player 2 score: " + player2.getScore());
-                //System.out.println("hier mogelijkheid bieden andere spelers te nemen");
+                System.out.println("Amount of draws: " + drawCount );
+                System.out.println("Player 1 score: " + player1.getScore());
+                System.out.println("Player 2 score: " + player2.getScore());
                 System.out.println();
                 System.out.println();
 
@@ -111,9 +102,9 @@ public class Main {
                 System.out.println("Press 1 to continue playing");
                 System.out.println("Press 2 to switch players");
                 System.out.println("Press 3 to exit");
-                //String are_you_done = playerInput.next();
+
                 int are_you_done = are_you_done_scanner.nextInt();
-                //hier moet ook nog detectie foute input op, weer een method van maken?
+                //TODO this should detect incorrect input, maybe turn this into a method?
                 if (are_you_done == 3) {
                     System.exit(0);
                     //user_wants_to_exit = 1;
@@ -121,16 +112,13 @@ public class Main {
                     switch_players = 1;
                 }
 
-
-
             }
-
         }
     }
 
 
     public static void printBoard(char[] board) {
-        //TODO vervangen door elegantere versie?
+        //TODO write something more elegant
         for (int fieldIndex = 0; fieldIndex < board.length; fieldIndex++) {
             System.out.print(board[fieldIndex] + " ");
             // als we het tweede veld geprint hebben of het vijfde veld geprint hebben
@@ -147,7 +135,7 @@ public class Main {
     }
 
 
-    public static int check_if_someone_won(char[] board) { // zou een boolean moeten returnen
+    public static int check_if_someone_won(char[] board) { //TODO this should return a boolean
 
         for (int i = 1; i < 4; i++) {
             //horizontal check
@@ -161,8 +149,8 @@ public class Main {
                 return 1;
             }
         }
-        //er is vast een mooiere manier om de diagonalen te checken!
-        if (board[0] == board[4] && board[4] == board[8]) { // 1 5 9 & 7 5 3 (maar allemaal -1)
+        //TODO find more elegant way to check diagonals
+        if (board[0] == board[4] && board[4] == board[8]) { // 1 5 9 & 7 5 3 (-1 due to zero based array)
             System.out.println("-----------------diagonal win");
             return 1;
         }
@@ -174,7 +162,7 @@ public class Main {
     }
 
 
-    public static int ask_player_for_move(int speler) {  //speler 0 of speler 1? of 1 of 2?
+    public static int ask_player_for_move(int player_number) {  //Player 1 or player 2
 
         Scanner scan = new Scanner(System.in);  // Create a Scanner object
 
@@ -182,27 +170,27 @@ public class Main {
         int inputInt = 0;
         do {
 
-            System.out.print("Speler " + speler + " please enter a whole number: ");
-            if (scan.hasNextInt()) { // heb het zonder dit If statement geprobeerd maar dat was geen succes!
+            System.out.print("Player " + player_number + " please enter a whole number (1-9): ");
+            if (scan.hasNextInt()) { // I tried getting rid of this If statement but no bueno
                 inputInt = scan.nextInt();
 
                 try {
                     if (board[inputInt - 1] != 'O' && board[inputInt - 1] != 'X') {
                         validInput = true;
                     } else {
-                        System.out.println("This space is already occupied!");
+                        System.out.println("This space is already occupied.");
                         validInput = false;
                     }
                 } catch (Exception e) {
-                    System.out.println("Please enter a whole number only 1-9");
+                    System.out.println("Player " + player_number + " please enter a whole number (1-9): ");
                     validInput = false;
                 }
 
             } else
-                System.out.println("You have entered incorrect input! Please enter a whole number 1-9");
+                System.out.println("Player " + player_number + " please enter a whole number (1-9): ");
                 scan.nextLine();
             }
-        while (validInput == false); //rare syntax voor de while!
+        while (validInput == false); //a while loop has a weird syntax!
 
         return inputInt;
     }

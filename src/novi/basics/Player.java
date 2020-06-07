@@ -6,7 +6,7 @@ public class Player {
     private String name;
     private char token;
     private int score;
-    private int wins;
+    //private int wins;
 
     //methoden: acties die de speler uit kan voeren
     //constructor
@@ -15,7 +15,7 @@ public class Player {
         this.name = name;
         this.token = token;
         score = 0;
-        wins = 0;
+        //wins = 0;
     }
 
     //get methoden
@@ -35,9 +35,9 @@ public class Player {
         return score;
     }
 
-    public int getWins() {
-        return wins;
-    }
+    //public int getWins() {
+    //    return wins;
+    //}
 
     //set methoden
     /*public void setScore(int score) {
@@ -46,7 +46,7 @@ public class Player {
     public void addScore() {
         score++;
     }
-    public void addWin() {
+    //public void addWin() {
         //parameter voor welke speler gewonnen heeft???
-    }
+    //}
 }
