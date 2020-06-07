@@ -2,6 +2,7 @@ package novi.basics;
 
 public class Player {
     //attributen: informatie verzamelen
+    private int playerid;
     private String name;
     private char token;
     private int score;
@@ -9,7 +10,8 @@ public class Player {
 
     //methoden: acties die de speler uit kan voeren
     //constructor
-    public Player(String name, char token) {
+    public Player(int playerid, String name, char token) {
+        this.playerid = playerid;
         this.name = name;
         this.token = token;
         score = 0;
@@ -17,6 +19,10 @@ public class Player {
     }
 
     //get methoden
+    public int getId() {
+        return playerid;
+    }
+
     public String getName() {
         return name;
     }
