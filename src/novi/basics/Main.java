@@ -15,18 +15,18 @@ public class Main {
         //TODO add ability to cheat; chosing field 13 automagically wins the game
         //TODO support non-standard tokens
         //TODO make alternative version wherein board is a multidimensional array
+        //TODO player 1 mag nu, nadat ie gewonnnen heeft en je van player bent geswitched, 2 keer op een rij een zet doen!
 
         boolean does_user_want_to_quit = false; //a bit presumptuous
         boolean should_we_switch_players = false;
         boolean did_someone_win = false;
         boolean should_we_ask_player_names = true;
 
-
         int drawCount = 0;
         int chosenField;
-
         char activePlayerToken;
         int activePlayerId = 1;
+        int answer_continue_switchplayers_exit;
 
         while (does_user_want_to_quit == false) {
             Scanner playerInput = new Scanner(System.in);
@@ -55,7 +55,7 @@ public class Main {
 
                 char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-                //TODO hier while loop van maken: zolang spel niet gewonnen is en we nog niet op beurt 10 zitten
+                //TODO hier while loop van maken? zolang spel niet gewonnen is en we nog niet op beurt 10 zitten
                 for (int turn = 1; turn < 10; turn++) { // the game has a max 9 turns, but the 9th turn is kinda pointless cause there is only 1 option left!
 
                     System.out.println("Turn number: " + turn);
@@ -69,6 +69,7 @@ public class Main {
                     }
 
                     if (did_someone_win) {
+                        did_someone_win = false;
                         printBoard(board);
 
                         if (activePlayerId == 1) {
@@ -102,7 +103,7 @@ public class Main {
                 player2.show_score();
                 System.out.println();
                 System.out.println();
-                int answer_continue_switchplayers_exit;
+
                 answer_continue_switchplayers_exit = ask_continue_switchplayers_exit();
                 if (answer_continue_switchplayers_exit == 2) {
                     System.out.println("Switching players...");
