@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        //zou leuker zijn als dit voor alle board sizes werkte
-        //speler objecten zoveel mogelijk gebruiken in tic tac toe, ik gebruik nu nog player1name en player2name
-        //welke andere classes kan ik aan tic tac toe toevoegen
+        //TODO zou leuker zijn als dit voor alle board sizes werkte
+        //TODO speler objecten zoveel mogelijk gebruiken in tic tac toe, ik gebruik nu nog player1name en player2name
+        //TODO welke andere classes kan ik aan tic tac toe toevoegen
 
         Scanner playerInput = new Scanner(System.in);
 
@@ -137,6 +137,7 @@ public class Main {
 
 
     public static void printBoard(char[] board) {
+        //TODO vervangen door mijn elegantere versie
         for (int fieldIndex = 0; fieldIndex < board.length; fieldIndex++) {
             System.out.print(board[fieldIndex] + " ");
             // als we het tweede veld geprint hebben of het vijfde veld geprint hebben
@@ -164,7 +165,7 @@ public class Main {
                 return 1;
             }
         }
-        //diagonalen checken, zowel linksonder naar rechtsboven als linksboven naar rechtsonder
+        //TODO diagonalen checken, zowel linksonder naar rechtsboven als linksboven naar rechtsonder
 
         return 0;
     }
