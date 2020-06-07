@@ -8,44 +8,31 @@ public class Main {
         //speler objecten zoveel mogelijk gebruiken in tic tac toe
         //welke andere classes kan ik aan tic tac toe toevoegen
 
-        Scanner playerInput = new Scanner(System.in);
-
 
 
         // -- vanaf hier gaan we het spel opnieuw spelen met andere spelers (nadat op het eind keuze 2 gekozen is)
-        // de 1e speler om zijn naam vragen
-        System.out.println("Player 1, what is your name?");
-        // de naam van de 1e speler opslaan
-        String player1Name = playerInput.next();
-        Player player1 = new Player(player1Name, 'X');
-        // de 2e speler om zijn naam vragen
-        System.out.println("Player 2, what is your name?");
-        // de naam van de 2e speler opslaan
-        String player2Name = playerInput.next();
-        Player player2 = new Player(player2Name, 'O');
 
-        // opslaan hoeveel keer er gelijk spel is geweest
-        int drawCount = 0;
+
+
         // -- vanaf hier gaan we het spel opnieuw spelen met dezelfde spelers (nadat op het eind keuze 1 gekozen is)
         // speelbord opslaan (1 - 9)
         // uitleg: omdat we altijd met een bord starten met 9 getallen, kunnen we het Tic Tac Toe bord ook direct een waarde geven
         // zie demo project code voor de andere manier met de for loop
         char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
-        // maximale aantal rondes opslaan
-        int maxRounds = board.length;
         // speelbord tonen
         printBoard(board);
-        // token van de actieve speler opslaan
-        char activePlayerToken = 'X';
 
+
+        int maxRounds = board.length; // maximale aantal rondes opslaan
+        char activePlayerToken = 'X'; // token van de actieve speler opslaan
+        int drawCount = 0; // opslaan hoeveel keer er gelijk spel is geweest
+        String activePlayerName;
 
 
         // starten met de beurt (maximaal 9 beurten)
         for (int round = 0; round < maxRounds; round++) {
-            // naam van de actieve speler opslaan
-            String activePlayerName;
 
+            // naam van de actieve speler opslaan
             if (activePlayerToken == player1.getToken()) {
                 activePlayerName = player1Name;
             } else {
@@ -119,14 +106,52 @@ public class Main {
 
 
     public static void printBoard(char[] board) {
-        for (int fieldIndex=1; fieldIndex<board.length; fieldIndex++) {
-            board[fieldIndex] = (char) (fieldIndex + '0'); //dus eigenlijk plus 48, de ascii waarde van 0
-            System.out.print(board[fieldIndex]);
-            if (fieldIndex % 3 == 0) { // if divisible by 3
+        for (int fieldIndex = 0; fieldIndex < board.length; fieldIndex++) {
+            System.out.print(board[fieldIndex] + " ");
+            // als we het tweede veld geprint hebben of het vijfde veld geprint hebben
+            // dan gaan we naar de volgende regel
+            if(fieldIndex == 2 || fieldIndex == 5) {
                 System.out.println();
             }
         }
+        System.out.println();
+    }
+
+
+
+    public static void check_if_someone_won(char[] board) {
+        //eerst horizontaal checken
+        int i;
+        for(i=0;i<3;i++) {
+            if(board[i][0]==board[i][1] && board[i][1]==board[i][2]) {
+                System.out.println("iemand heeft horizontaal gewonnen op regel " + i + " namelijk de speler met het token: " + board[i][1]);
+            }
+        }
+        //verticaal checken
+
+        //diagonalen checken, zowel linksonder naar rechtsboven als linksboven naar rechtsonder
 
     }
+
+    public static void spelers_om_naam_vragen(){
+
+        Scanner playerInput = new Scanner(System.in);
+
+        // de 1e speler om zijn naam vragen
+        System.out.println("Player 1, what is your name?");
+        // de naam van de 1e speler opslaan
+        String player1Name = playerInput.next();
+        Player player1 = new Player(player1Name, 'X');
+        // de 2e speler om zijn naam vragen
+        System.out.println("Player 2, what is your name?");
+        // de naam van de 2e speler opslaan
+        String player2Name = playerInput.next();
+        Player player2 = new Player(player2Name, 'O');
+    }
+
+
+
+
+
 
 }
