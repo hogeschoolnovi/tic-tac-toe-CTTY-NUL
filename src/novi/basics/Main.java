@@ -16,17 +16,17 @@ public class Main {
         //TODO make board a multidimensional array
         //TODO support non-standard tokens
 
-        int user_wants_to_exit = 0; //TODO should be a boolean
-        int switch_players = 0; //TODO should be a boolean
+        boolean does_user_want_to_quit = false; //a bit presumptuous
+        boolean should_we_switch_players = false;
+
         int drawCount = 0;
         int chosenField;
         int did_someone_win; //TODO should be a boolean
-        int ask_for_player_names = 0; //TODO should be a boolean
+        int ask_for_player_names = 1; //TODO should be a boolean
         char activePlayerToken;
         int activePlayerId = 1;
 
-        while (user_wants_to_exit == 0) {
-
+        while (does_user_want_to_quit == false) {
             Scanner playerInput = new Scanner(System.in);
 
             //give players default names to speed up testing but allow overriding them later
@@ -46,10 +46,10 @@ public class Main {
             //activePlayerId = player1
             activePlayerToken = player1.getToken();
 
-            switch_players = 0; //we just did
+            should_we_switch_players = false; //we just did
 
 
-            while (switch_players == 0) {
+            while (!should_we_switch_players && does_user_want_to_quit == false) {
 
                 char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
@@ -103,9 +103,12 @@ public class Main {
                 int answer_continue_switchplayers_exit;
                 answer_continue_switchplayers_exit = ask_continue_switchplayers_exit();
                 if (answer_continue_switchplayers_exit == 2) {
-                    switch_players = 1;
+                    System.out.println("Switching players...");
+                    ask_for_player_names = 1;
+                    should_we_switch_players = true;
                 } else if(answer_continue_switchplayers_exit == 3) {
-                    System.exit(0);
+                    System.out.println("Quitting...");
+                    does_user_want_to_quit = true;
                 }
 
             }
