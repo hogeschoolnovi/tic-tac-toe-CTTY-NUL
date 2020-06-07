@@ -4,37 +4,31 @@ import java.util.Scanner;
 
 public class Main {
 
-    //ik moet dingen hier declareren als ik ze ook in andere methods wil gebruiken!
+    //declare board here so it can be used in different methods
     public static char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
     public static void main(String[] args) {
-        //TODO zou leuker zijn als dit voor alle board sizes werkte
-        //TODO welke andere classes kan ik aan tic tac toe toevoegen
-        //TODO playerid ipv playertoken gebruiken
-        //TODO Engels en Nederlands door elkaar
+        //TODO make it work for all board dimensions?
+        //TODO add ability to cheat; chosing field 13 automagically wins the game
+        //TODO make board a multidimensional array
 
-
-        int user_wants_to_exit = 0;
-        int switch_players = 0;
-        int drawCount = 0; // opslaan hoeveel keer er gelijk spel is geweest
+        int user_wants_to_exit = 0; //TODO should be a boolean
+        int switch_players = 0; //TODO should be a boolean
+        int drawCount = 0;
         String activePlayerName;
-        int keuze;
-        int did_someone_win;
-
+        int chosenField;
+        int did_someone_win; //TODO should be a boolean
         int ask_for_player_names = 0; //TODO should be a boolean
 
         while (user_wants_to_exit == 0) {
 
             Scanner playerInput = new Scanner(System.in);
 
-            String player1Name;
-            String player2Name;
+            //give players default names to speed up testing but allow overriding them later
+            String player1Name = "Alice";
+            String player2Name = "Bob";
 
-            if (ask_for_player_names == 0) {
-              //give players default names to speed up testing
-              player1Name = "Alice";
-              player2Name = "Bob";
-            } else {
+            if (ask_for_player_names != 0) {
                 System.out.println("Player 1, what is your name?");
                 player1Name = playerInput.next();
 
@@ -45,10 +39,10 @@ public class Main {
             Player player2 = new Player(2, player2Name, 'O');
 
 
-            switch_players = 0;
+            switch_players = 0; //we just did
 
-            char activePlayerToken = 'X';
-            int activePlayerId = 1;
+            char activePlayerToken = 'X'; //TODO move to the rest of the declarations
+            int activePlayerId = 1; //TODO move to the rest of the declarations
 
             while (switch_players == 0) {
 
@@ -58,15 +52,14 @@ public class Main {
                     System.out.println("Turn number: " + turn);
 
                     printBoard(board);
-                    keuze = ask_player_for_move(activePlayerId);
+                    chosenField = ask_player_for_move(activePlayerId); //TODO chosenfield is ambigous
 
-                    board[keuze - 1] = activePlayerToken;
-                    //printBoard(board);
+                    board[chosenField - 1] = activePlayerToken;
                     //if (turn > 2) { //TODO checking if someone won after only 2 turns is pointless
                     did_someone_win = check_if_someone_won(board);
                     //}
 
-                    if (did_someone_win == 1) { //TODO I could change the for loop to a while loop and use turn++; the game may take less than 9 turns
+                    if (did_someone_win == 1) {
                         printBoard(board);
 
                         if (activePlayerId == 1) {
@@ -75,12 +68,11 @@ public class Main {
                             player2.addScore();
                         }
 
-                        turn = 9;
+                        turn = 9; //TODO I could change the for loop to a while loop and use turn++; the game may take less than 9 turns
                     } else if (did_someone_win == 0 && turn == 9) {
                         drawCount++;
-                        System.out.println("Its a draw... so you both lost!");
+                        System.out.println("Its a draw... so technically you both lost!");
                     }
-
 
                     if (activePlayerId == 1) {
                         activePlayerId = 2;
