@@ -127,7 +127,7 @@ public class Main {
     }
 
 
-    public static int ask_player_for_move(int speler) {  //speler 0 of speler 1?
+    public static int ask_player_for_move(int speler) {  //speler 0 of speler 1? of 1 of 2?
 
         Scanner scan = new Scanner(System.in);  // Create a Scanner object
 
@@ -141,25 +141,20 @@ public class Main {
 
                 try {
                     if (board[inputInt - 1] != 'O' && board[inputInt - 1] != 'X') {
-                        //System.out.println("gelukt!");
                         validInput = true;
                     } else {
                         System.out.println("This space is already occupied!");
                         validInput = false;
                     }
                 } catch (Exception e) {
-                    //System.out.println("Error");
-                }
-
-                if (inputInt > 9 || inputInt < 1) {
                     System.out.println("Please enter a whole number only 1-9");
                     validInput = false;
                 }
 
             } else
                 System.out.println("You have entered incorrect input! Please enter a whole number 1-9");
-            scan.nextLine();
-        }
+                scan.nextLine();
+            }
         while (validInput == false);
 
         return inputInt;
