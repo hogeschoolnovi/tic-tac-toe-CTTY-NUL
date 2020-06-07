@@ -8,10 +8,24 @@ public class Main {
         //speler objecten zoveel mogelijk gebruiken in tic tac toe
         //welke andere classes kan ik aan tic tac toe toevoegen
 
-
+        Scanner playerInput = new Scanner(System.in);
 
         // -- vanaf hier gaan we het spel opnieuw spelen met andere spelers (nadat op het eind keuze 2 gekozen is)
+        // de 1e speler om zijn naam vragen
 
+//voor testen makkelijker als ze defaultnamen hebben
+
+        String player1Name = "Alice";
+        String player2Name = "Bob";
+//        System.out.println("Player 1, what is your name?");
+        // de naam van de 1e speler opslaan
+//        String player1Name = playerInput.next();
+        Player player1 = new Player(player1Name, 'X');
+        // de 2e speler om zijn naam vragen
+//        System.out.println("Player 2, what is your name?");
+        // de naam van de 2e speler opslaan
+//        String player2Name = playerInput.next();
+        Player player2 = new Player(player2Name, 'O');
 
 
         // -- vanaf hier gaan we het spel opnieuw spelen met dezelfde spelers (nadat op het eind keuze 1 gekozen is)
@@ -55,10 +69,27 @@ public class Main {
                     //player.score += 10;
                     // het nieuwe speelbord tonen
                     printBoard(board);
-                    // als het spel gewonnen is
-                    // tonen wie er gewonnen heeft (de actieve speler)
-                    // de actieve speler krijgt een punt
-                    // de scores van de spelers tonen
+                        // als het spel gewonnen is
+                        int heefteriemandgewonnen;
+                        heefteriemandgewonnen = check_if_someone_won(board);
+                        if (heefteriemandgewonnen == 1) {
+                            // tonen wie er gewonnen heeft (de actieve speler)
+                            System.out.println(activePlayerName + " heeft gewonnen!");
+                            // de actieve speler krijgt een punt
+                            if (activePlayerToken == player1.getToken()) {
+                                player1.addScore();
+                            } else {
+                                player2.addScore();
+                            }
+
+
+                            // de scores van de spelers tonen
+                            System.out.println();
+                            System.out.println("Scorebord");
+                            System.out.println("---------");
+                            System.out.println(player1.getName() + ": " + player1.getScore());
+                            System.out.println(player2.getName() + ": " + player2.getScore());
+                        }
                     // wanneer we in de laatste beurt zijn en niemand gewonnen heeft
                     // aantal keer gelijk spel ophogen
                     // aantal keer gelijk spel tonen
@@ -119,39 +150,22 @@ public class Main {
 
 
 
-    public static void check_if_someone_won(char[] board) {
-        //eerst horizontaal checken
-        int i;
-        for(i=0;i<3;i++) {
-            if(board[i][0]==board[i][1] && board[i][1]==board[i][2]) {
-                System.out.println("iemand heeft horizontaal gewonnen op regel " + i + " namelijk de speler met het token: " + board[i][1]);
+    public static int check_if_someone_won(char[] board) {
+        for (int i = 1; i < 4; i++) {
+            //horizontaal checken
+            if(board[i * 3 - 3] == board[i * 3 - 2] && board[i * 3 - 2] == board[i * 3 - 1]){
+                System.out.println("WHOOHOOOOOOO er heeft iemand horizontaal gewoonnen!!!");
+                return 1;
+            }
+            //verticaal checken
+            if(board[i - 1] == board[i+2] && board[i+2] == board[i+5]){
+                System.out.println("fuck yeah verticale win");
+                return 1;
             }
         }
-        //verticaal checken
-
         //diagonalen checken, zowel linksonder naar rechtsboven als linksboven naar rechtsonder
 
+        return 0;
     }
-
-    public static void spelers_om_naam_vragen(){
-
-        Scanner playerInput = new Scanner(System.in);
-
-        // de 1e speler om zijn naam vragen
-        System.out.println("Player 1, what is your name?");
-        // de naam van de 1e speler opslaan
-        String player1Name = playerInput.next();
-        Player player1 = new Player(player1Name, 'X');
-        // de 2e speler om zijn naam vragen
-        System.out.println("Player 2, what is your name?");
-        // de naam van de 2e speler opslaan
-        String player2Name = playerInput.next();
-        Player player2 = new Player(player2Name, 'O');
-    }
-
-
-
-
-
 
 }
