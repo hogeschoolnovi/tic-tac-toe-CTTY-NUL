@@ -37,6 +37,35 @@ public class Main {
         printBoard(board);
 
 
+
+
+        int user_wants_to_exit = 0;
+        int user_input_is_valid = 0;
+
+        while (user_wants_to_exit == 0) {
+
+            for (int turn = 1; turn < 10; turn++) {
+                System.out.println("Het is beurt nummer " + turn);
+
+                while (user_input_is_valid == 0){
+
+                }
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         int maxRounds = board.length; // maximale aantal rondes opslaan
         char activePlayerToken = 'X'; // token van de actieve speler opslaan
         int drawCount = 0; // opslaan hoeveel keer er gelijk spel is geweest
@@ -90,11 +119,11 @@ public class Main {
                             System.out.println(player1.getName() + ": " + player1.getScore());
                             System.out.println(player2.getName() + ": " + player2.getScore());
                         }
-                    // wanneer we in de laatste beurt zijn en niemand gewonnen heeft
-                    // aantal keer gelijk spel ophogen
-                    // aantal keer gelijk spel tonen
-                    // de beurt doorgeven aan de volgende speler (van speler wisselen)
-                    // als de actieve speler, speler 1 is:
+                    //TODO wanneer we in de laatste beurt zijn en niemand gewonnen heeft
+                    //TODO aantal keer gelijk spel ophogen
+                    //TODO aantal keer gelijk spel tonen
+                    //de beurt doorgeven aan de volgende speler (van speler wisselen)
+                    //als de actieve speler, speler 1 is:
                     if (activePlayerToken == player1.getToken()) {
                         // maak de actieve speler, speler 2
                         activePlayerToken = player2.getToken();
@@ -109,7 +138,7 @@ public class Main {
                     maxRounds++;
                     System.out.println("this field is not available, choose another");
                 }
-                //versie 2: als het veld leeg is, wanneer de waarde gelijk is aan chosenField
+                //TODO versie 2: als het veld leeg is, wanneer de waarde gelijk is aan chosenField
                 /*if(board[chosenIndex] != '1' + chosenIndex) {
                     board[chosenIndex] = activePlayerToken;
                 }*/
@@ -124,7 +153,7 @@ public class Main {
 
             // -- terug naar het begin van de volgende beurt
         }
-        // vragen of de spelers nog een keer willen spelen
+        //TODO vragen of de spelers nog een keer willen spelen
         //1: nog een keer spelen
         //2: van spelers wisselen
         //3: afsluiten
