@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         //TODO make it work for all board dimensions?
         //TODO add ability to cheat; chosing field 13 automagically wins the game
-        //TODO make board a multidimensional array
+        //TODO make board a multidimensional array!
 
         int user_wants_to_exit = 0; //TODO should be a boolean
         int switch_players = 0; //TODO should be a boolean
