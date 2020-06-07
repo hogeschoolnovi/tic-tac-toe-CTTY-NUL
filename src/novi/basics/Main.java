@@ -16,6 +16,8 @@ public class Main {
         //TODO support non-standard tokens
         //TODO make alternative version wherein board is a multidimensional array
         //TODO player 1 mag nu, nadat ie gewonnnen heeft en je van player bent geswitched, 2 keer op een rij een zet doen!
+        //TODO Meer OO maken
+        //TODO opslaan en laden met https://www.tutorialspoint.com/java/java_serialization.htm
 
         boolean does_user_want_to_quit = false; //a bit presumptuous
         boolean should_we_switch_players = false;
@@ -109,7 +111,7 @@ public class Main {
                     System.out.println("Switching players...");
                     should_we_ask_player_names = true;
                     should_we_switch_players = true;
-                } else if(answer_continue_switchplayers_exit == 3) {
+                } else if (answer_continue_switchplayers_exit == 3) {
                     System.out.println("Quitting...");
                     does_user_want_to_quit = true;
                 }
