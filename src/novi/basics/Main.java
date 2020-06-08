@@ -96,23 +96,18 @@ public class Main {
 
             read_properties(properties);
 
-//            int a;
-//            int b;
-//            b = a.parseInt(properties.getProperty("player1score"));
-//            player1.setScore(a);
+            //TODO er is kans dat er helemaal nooit een score is opgeslagen! try catch gebruiken!
+            String Stringplayer1score = properties.getProperty("player1score");
+            String Stringplayer2score = properties.getProperty("player2score");
+//            System.out.println("ingelezen score speler 1 " + Stringplayer1score);
 
-                //int zz = 0;
-                String Stringplayer1score = properties.getProperty("player1score");
-                String Stringplayer2score = properties.getProperty("player2score");
-                //zz = Integer.parseInt(Stringplayer1score);
-                //player1.setScore(zz);
-                player1.setScore(Integer.parseInt(Stringplayer1score));
-                player2.setScore(Integer.parseInt(Stringplayer2score));
-//            player1.setScore( Integer.parseInt(properties.getProperty("player1score"))); //zijn strings maar we maken er integers van
-//            player2.setScore( Integer.parseInt(properties.getProperty("player2score")));
-            //player1.setScore( properties.getProperty("player1score"));
-            //player2.setScore(properties.getProperty("player2score"));
-            drawCount = Integer.parseInt(properties.getProperty("drawCount"));
+            player1.setScore(Integer.parseInt(Stringplayer1score));
+            player2.setScore(Integer.parseInt(Stringplayer2score));
+            String drawz = properties.getProperty("drawCount");
+            drawCount = Integer.parseInt(drawz);
+//          System.out.println("huidige score player 1: " + player1.getScore());
+//            System.out.println("draws " + drawCount);
+
 
 
             while (!should_we_switch_players && does_user_want_to_quit == false) {
@@ -136,15 +131,20 @@ public class Main {
                         did_someone_win = false;
                         printBoard(board);
 
-                        properties.setProperty("player1score", "" + player1.getScore()); //maak er strings van met dubbele aanhalingstekens
-                        properties.setProperty("player2score", "" + player2.getScore());
-                        write_properties(properties);
+
 
                         if (activePlayerId == 1) {
                             player1.addScore();
                         } else {
                             player2.addScore();
                         }
+
+                        //System.out.println("player 1 score volgens getscore method is " + player1.getScore());
+                        properties.setProperty("player1score", "" + player1.getScore()); //maak er strings van met dubbele aanhalingstekens
+                        properties.setProperty("player2score", "" + player2.getScore());
+                        properties.setProperty("drawCount", "" + drawCount);
+
+                        write_properties(properties);
 
                         turn = 9; //TODO I could change the for loop to a while loop and use turn++; the game may take less than 9 turns
                     } else if (!did_someone_win && turn == 9) {
