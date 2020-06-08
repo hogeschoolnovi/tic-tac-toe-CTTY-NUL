@@ -23,15 +23,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Properties properties = new Properties();
-        properties.setProperty("email", "john@doe.com");
-        write_properties(properties);
 
-
-        System.out.println("nu lezen!");
-        read_properties(properties);
-        String email = properties.getProperty("email");
-        System.out.println(email);
 
 
 
@@ -43,11 +35,25 @@ public class Main {
         //TODO Meer OO maken, dennis had al een object gemaakt van Game --  https://teams.microsoft.com/l/message/19:be1c62f9f979469ebf6b716d6116d058@thread.tacv2/1590651557496?tenantId=4243de4c-3701-4a5d-b67a-388c5c9557a2&groupId=fbfe6b51-adc0-43a0-910f-e62e138dec79&parentMessageId=1590651557496&teamName=Full%20Stack%20Developers%205%2F2020&channelName=General&createdTime=1590651557496
         //TODO opslaan en laden met https://www.tutorialspoint.com/java/java_serialization.htm
 
-        System.out.println("nu lezen");
+
+
+
+
+
+
+        System.out.println("nu lezen"); //object naar bestand schrijven
         read_from_file();
 
-        System.out.println("nu schrijven");
+        System.out.println("nu schrijven"); //object uit bestand inlezen
         write_to_file();
+
+
+
+
+
+
+
+
 
 
         boolean does_user_want_to_quit = false; //a bit presumptuous
@@ -60,6 +66,9 @@ public class Main {
         char activePlayerToken;
         int activePlayerId = 1;
         int answer_continue_switchplayers_exit;
+
+
+        Properties properties = new Properties(); // read properties en write properties
 
         while (does_user_want_to_quit == false) {
             Scanner playerInput = new Scanner(System.in);
@@ -84,6 +93,16 @@ public class Main {
             should_we_switch_players = false; //we just did
 
 
+
+            read_properties(properties);
+
+            player1.setScore( Integer.parseInt(properties.getProperty("player1score"))); //zijn strings maar we maken er integers van
+            player2.setScore( Integer.parseInt(properties.getProperty("player2score")));
+            //player1.setScore( properties.getProperty("player1score"));
+            //player2.setScore(properties.getProperty("player2score"));
+            drawCount = Integer.parseInt(properties.getProperty("drawCount"));
+
+
             while (!should_we_switch_players && does_user_want_to_quit == false) {
 
                 char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -104,6 +123,10 @@ public class Main {
                     if (did_someone_win) {
                         did_someone_win = false;
                         printBoard(board);
+
+                        properties.setProperty("player1score", "" + player1.getScore()); //maak er strings van met dubbele aanhalingstekens
+                        properties.setProperty("player2score", "" + player2.getScore());
+                        write_properties(properties);
 
                         if (activePlayerId == 1) {
                             player1.addScore();
@@ -274,6 +297,13 @@ public class Main {
 
 
     public static void read_properties(Properties properties){
+
+//        System.out.println("nu lezen!");
+//        read_properties(properties);
+//        String email = properties.getProperty("email");
+//        System.out.println(email);
+//
+
         //Properties properties = new Properties();
         try(FileReader fileReader = new FileReader("data/props.properties")){
             properties.load(fileReader);
@@ -284,7 +314,14 @@ public class Main {
         //System.out.println("asdasd " + email2);
     }
     public static void write_properties(Properties properties){
-        //TODO folder aanmaken in try catch zetten!
+
+//        Properties properties = new Properties();
+//        properties.setProperty("email", "john@doe.com");
+//        write_properties(properties);
+
+
+
+
         //Create folder if it doesnt exist
         try {
             String directory = "data";

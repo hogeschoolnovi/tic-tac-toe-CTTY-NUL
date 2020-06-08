@@ -91,17 +91,24 @@ public class Player implements Serializable {
         return token;
     }
 
+    public int getScore() {
+        return score;
+    }
+
     public void show_score() {
         System.out.println("Player " + this.getName() + " scored " + this.score + " points"); //this.getScore()
     }
 
     //set methoden
-    /*public void setScore(int score) {
+    public void setScore(int score) {
         this.score = score;
-    }*/
+    }
     public void addScore() {
         score++;
     }
+
+
+
 
 
 }
