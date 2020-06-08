@@ -96,8 +96,20 @@ public class Main {
 
             read_properties(properties);
 
-            player1.setScore( Integer.parseInt(properties.getProperty("player1score"))); //zijn strings maar we maken er integers van
-            player2.setScore( Integer.parseInt(properties.getProperty("player2score")));
+//            int a;
+//            int b;
+//            b = a.parseInt(properties.getProperty("player1score"));
+//            player1.setScore(a);
+
+                //int zz = 0;
+                String Stringplayer1score = properties.getProperty("player1score");
+                String Stringplayer2score = properties.getProperty("player2score");
+                //zz = Integer.parseInt(Stringplayer1score);
+                //player1.setScore(zz);
+                player1.setScore(Integer.parseInt(Stringplayer1score));
+                player2.setScore(Integer.parseInt(Stringplayer2score));
+//            player1.setScore( Integer.parseInt(properties.getProperty("player1score"))); //zijn strings maar we maken er integers van
+//            player2.setScore( Integer.parseInt(properties.getProperty("player2score")));
             //player1.setScore( properties.getProperty("player1score"));
             //player2.setScore(properties.getProperty("player2score"));
             drawCount = Integer.parseInt(properties.getProperty("drawCount"));
