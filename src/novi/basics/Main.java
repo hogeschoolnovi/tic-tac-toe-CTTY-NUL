@@ -309,6 +309,9 @@ public class Main {
 
 
     public static void read_properties(Properties properties){
+            //http://tutorials.jenkov.com/java-collections/properties.html
+        //https://docs.oracle.com/javase/tutorial/essential/environment/properties.html
+
 
 //        System.out.println("nu lezen!");
 //        read_properties(properties);
