@@ -5,8 +5,7 @@ import java.io.*;
 public class Player implements Serializable {
 
     //TODO toString() leren https://www.javatpoint.com/understanding-toString()-method
-    //TODO heb nu deze gedaan, maar moet ook lezen https://attacomsian.com/blog/java-write-object-to-file#
-    //https://attacomsian.com/blog/java-read-object-from-file
+
 
     static final long serialVersionUID = 1L; //hm rare problemen zonder serialVersionUID https://stackoverflow.com/a/27489906 java.io.InvalidClassException:
 
@@ -25,6 +24,11 @@ public class Player implements Serializable {
         this.token = token;
         score = 0;
         //wins = 0;
+    }
+
+    //overriding the toString() method
+    public String toString(){
+        return playerid+" "+name+" "+token;
     }
 
     public static int write_to_file() {

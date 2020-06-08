@@ -13,20 +13,23 @@ public class Main {
     //public static char player1token = 'X'; //mogelijk maken om andere tokens te kiezen!
     //public static char player2token = 'O';
 
+
+
     public static void main(String[] args) {
         //TODO make it work for all board dimensions?
         //TODO add ability to cheat; chosing field 13 automagically wins the game
         //TODO support non-standard tokens
         //TODO make alternative version wherein board is a multidimensional array
         //TODO player 1 mag nu, nadat ie gewonnnen heeft en je van player bent geswitched, 2 keer op een rij een zet doen!
-        //TODO Meer OO maken
+        //TODO Meer OO maken, dennis had al een object gemaakt van Game --  https://teams.microsoft.com/l/message/19:be1c62f9f979469ebf6b716d6116d058@thread.tacv2/1590651557496?tenantId=4243de4c-3701-4a5d-b67a-388c5c9557a2&groupId=fbfe6b51-adc0-43a0-910f-e62e138dec79&parentMessageId=1590651557496&teamName=Full%20Stack%20Developers%205%2F2020&channelName=General&createdTime=1590651557496
         //TODO opslaan en laden met https://www.tutorialspoint.com/java/java_serialization.htm
 
-
-        System.out.println("nu schrijven:");
-        write_to_file();
-        System.out.println("nu lezen:");
+        System.out.println("nu lezen");
         read_from_file();
+
+        System.out.println("nu schrijven");
+        write_to_file();
+
 
         boolean does_user_want_to_quit = false; //a bit presumptuous
         boolean should_we_switch_players = false;
