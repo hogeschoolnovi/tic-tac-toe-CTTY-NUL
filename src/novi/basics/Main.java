@@ -2,6 +2,7 @@ package novi.basics;
 
 import java.util.Scanner;
 
+import static novi.basics.Player.read_from_file;
 import static novi.basics.Player.write_to_file;
 
 public class Main {
@@ -22,8 +23,10 @@ public class Main {
         //TODO opslaan en laden met https://www.tutorialspoint.com/java/java_serialization.htm
 
 
+        System.out.println("nu schrijven:");
         write_to_file();
-
+        System.out.println("nu lezen:");
+        read_from_file();
 
         boolean does_user_want_to_quit = false; //a bit presumptuous
         boolean should_we_switch_players = false;
