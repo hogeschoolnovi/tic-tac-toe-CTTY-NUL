@@ -10,11 +10,12 @@ public class Player implements Serializable {
     static final long serialVersionUID = 1L; //hm rare problemen zonder serialVersionUID https://stackoverflow.com/a/27489906 java.io.InvalidClassException:
 
     //attributen: informatie verzamelen
+
     private int playerid;
     private String name;
     private char token;
     private int score;
-    //private int wins;
+
 
     //methoden: acties die de speler uit kan voeren
     //constructor
@@ -23,12 +24,7 @@ public class Player implements Serializable {
         this.name = name;
         this.token = token;
         score = 0;
-        //wins = 0;
-    }
 
-    //overriding the toString() method
-    public String toString(){
-        return playerid+" "+name+" "+token;
     }
 
     public static int write_to_file() {
@@ -37,11 +33,8 @@ public class Player implements Serializable {
             FileOutputStream fos = new FileOutputStream("object.dat");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            // create a new user object
-
+            // create a new Player object
             Player playertmp = new Player(1, "onzinnaam", 'X');
-//            User user = new User("John Doe", "john.doe@example.com",
-//                    new String[]{"Member", "Admin"}, true);
 
             // write object to file
             oos.writeObject(playertmp);
@@ -63,11 +56,9 @@ public class Player implements Serializable {
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             // read object from file
-            //User user = (User) ois.readObject();
             Player playertmp = (Player) ois.readObject();
 
             // print object
-            //System.out.println(user);
             System.out.println(playertmp);
 
             // close reader
@@ -79,6 +70,11 @@ public class Player implements Serializable {
 
         int i = 0;
         return i;
+    }
+
+    //overriding the toString() method
+    public String toString() {
+        return hashCode() + " " + playerid + " " + name + " " + token;
     }
 
     //get methoden
@@ -94,20 +90,12 @@ public class Player implements Serializable {
         return name;
     }
 
-    //public int getWins() {
-    //    return wins;
-    //}
-
     public char getToken() {
         return token;
     }
-    //public void addWin() {
-    //parameter voor welke speler gewonnen heeft???
-    //}
 
     public void show_score() {
         System.out.println("Player " + this.getName() + " scored " + this.score + " points"); //this.getScore()
-
     }
 
     //set methoden
