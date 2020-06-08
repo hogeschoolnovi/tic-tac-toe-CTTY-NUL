@@ -30,8 +30,8 @@ public class Player implements Serializable {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             // create a new Player object
+            //Player playertmp = new Player(1, "onzinnaam", 'X');
             Player playertmp = new Player(1, "onzinnaam", 'X');
-
             // write object to file
             oos.writeObject(playertmp);
 
@@ -71,6 +71,7 @@ public class Player implements Serializable {
     //overriding the toString() method als ik dat niet doe krijg ik alleen de hashcode en niet de inhoud https://www.javatpoint.com/understanding-toString()-method
     public String toString() {
         return hashCode() + " " + playerid + " " + name + " " + token;
+        //return playerid + " " + name + " " + token;
     }
 
     //get methoden

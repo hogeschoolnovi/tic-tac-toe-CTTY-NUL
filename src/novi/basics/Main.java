@@ -1,11 +1,16 @@
 package novi.basics;
 
+import java.io.*;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Scanner;
+import java.util.*;
 
 import static novi.basics.Player.read_from_file;
 import static novi.basics.Player.write_to_file;
 
 public class Main {
+
 
     //declare stuff here so it can be used in different methods
     public static char[] board = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -16,6 +21,20 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+
+        Properties properties = new Properties();
+        properties.setProperty("email", "john@doe.com");
+        write_properties(properties);
+
+
+        System.out.println("nu lezen!");
+        read_properties(properties);
+        String email = properties.getProperty("email");
+        System.out.println(email);
+
+
+
         //TODO make it work for all board dimensions?
         //TODO add ability to cheat; chosing field 13 automagically wins the game
         //TODO support non-standard tokens
@@ -235,6 +254,69 @@ public class Main {
         while (validInput == false);
 
         return inputInt;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void read_properties(Properties properties){
+        //Properties properties = new Properties();
+        try(FileReader fileReader = new FileReader("data/props.properties")){
+            properties.load(fileReader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //String email2 = properties.getProperty("email");
+        //System.out.println("asdasd " + email2);
+    }
+    public static void write_properties(Properties properties){
+        //TODO folder aanmaken in try catch zetten!
+        //Create folder if it doesnt exist
+        try {
+            String directory = "data";
+            File dir = new File(directory);
+            // If you require it to make the entire directory path including parents, use directory.mkdirs(); here instead.
+            if (!dir.exists()) dir.mkdir();
+        } catch (SecurityException f) { // geen IOException maar een SecurityException https://stackoverflow.com/a/37723632
+            f.printStackTrace();
+        }
+
+        //Create file if it doesnt exist
+        try {
+            File myFile = new File("data/props.properties");
+
+            if (myFile.createNewFile()){
+                System.out.println("File is created!");
+            }else{
+                System.out.println("File already exists.");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        //Properties properties = new Properties();
+        try(FileWriter output = new FileWriter("data/props.properties")){
+            properties.store(output, "These are properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
