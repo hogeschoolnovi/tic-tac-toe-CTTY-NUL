@@ -1,10 +1,11 @@
 package novi.basics;
 
-import java.io.*;
-import java.util.Map;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.Scanner;
-import java.util.*;
 
 import static novi.basics.Player.read_from_file;
 import static novi.basics.Player.write_to_file;
@@ -19,12 +20,7 @@ public class Main {
     //public static char player2token = 'O';
 
 
-
     public static void main(String[] args) {
-
-
-
-
 
 
         //TODO make it work for all board dimensions?
@@ -36,24 +32,11 @@ public class Main {
         //TODO opslaan en laden met https://www.tutorialspoint.com/java/java_serialization.htm
 
 
-
-
-
-
-
         System.out.println("nu lezen"); //object naar bestand schrijven
         read_from_file();
 
         System.out.println("nu schrijven"); //object uit bestand inlezen
         write_to_file();
-
-
-
-
-
-
-
-
 
 
         boolean does_user_want_to_quit = false; //a bit presumptuous
@@ -93,7 +76,6 @@ public class Main {
             should_we_switch_players = false; //we just did
 
 
-
             read_properties(properties);
 
             //TODO er is kans dat er helemaal nooit een score is opgeslagen! try catch gebruiken!
@@ -107,7 +89,6 @@ public class Main {
             drawCount = Integer.parseInt(drawz);
 //          System.out.println("huidige score player 1: " + player1.getScore());
 //            System.out.println("draws " + drawCount);
-
 
 
             while (!should_we_switch_players && does_user_want_to_quit == false) {
@@ -130,7 +111,6 @@ public class Main {
                     if (did_someone_win) {
                         did_someone_win = false;
                         printBoard(board);
-
 
 
                         if (activePlayerId == 1) {
@@ -292,24 +272,8 @@ public class Main {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public static void read_properties(Properties properties){
-            //http://tutorials.jenkov.com/java-collections/properties.html
+    public static void read_properties(Properties properties) {
+        //http://tutorials.jenkov.com/java-collections/properties.html
         //https://docs.oracle.com/javase/tutorial/essential/environment/properties.html
 
 
@@ -320,7 +284,7 @@ public class Main {
 //
 
         //Properties properties = new Properties();
-        try(FileReader fileReader = new FileReader("data/props.properties")){
+        try (FileReader fileReader = new FileReader("data/props.properties")) {
             properties.load(fileReader);
         } catch (IOException e) {
             e.printStackTrace();
@@ -328,13 +292,12 @@ public class Main {
         //String email2 = properties.getProperty("email");
         //System.out.println("asdasd " + email2);
     }
-    public static void write_properties(Properties properties){
+
+    public static void write_properties(Properties properties) {
 
 //        Properties properties = new Properties();
 //        properties.setProperty("email", "john@doe.com");
 //        write_properties(properties);
-
-
 
 
         //Create folder if it doesnt exist
@@ -351,9 +314,9 @@ public class Main {
         try {
             File myFile = new File("data/props.properties");
 
-            if (myFile.createNewFile()){
+            if (myFile.createNewFile()) {
                 System.out.println("File is created!");
-            }else{
+            } else {
                 System.out.println("File already exists.");
             }
 
@@ -362,9 +325,8 @@ public class Main {
         }
 
 
-
         //Properties properties = new Properties();
-        try(FileWriter output = new FileWriter("data/props.properties")){
+        try (FileWriter output = new FileWriter("data/props.properties")) {
             properties.store(output, "These are properties");
         } catch (IOException e) {
             e.printStackTrace();
