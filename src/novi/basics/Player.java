@@ -4,9 +4,6 @@ import java.io.*;
 
 public class Player implements Serializable {
 
-    //TODO toString() leren https://www.javatpoint.com/understanding-toString()-method
-
-
     static final long serialVersionUID = 1L; //hm rare problemen zonder serialVersionUID https://stackoverflow.com/a/27489906 java.io.InvalidClassException:
 
     //attributen: informatie verzamelen
@@ -24,7 +21,6 @@ public class Player implements Serializable {
         this.name = name;
         this.token = token;
         score = 0;
-
     }
 
     public static int write_to_file() {
@@ -72,7 +68,7 @@ public class Player implements Serializable {
         return i;
     }
 
-    //overriding the toString() method
+    //overriding the toString() method als ik dat niet doe krijg ik alleen de hashcode en niet de inhoud https://www.javatpoint.com/understanding-toString()-method
     public String toString() {
         return hashCode() + " " + playerid + " " + name + " " + token;
     }
